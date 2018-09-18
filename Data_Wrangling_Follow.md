@@ -50,3 +50,18 @@ pups_data = read_csv(file = "./data/FAS_pups.csv")
     ##   `PD pivot` = col_integer(),
     ##   `PD walk` = col_integer()
     ## )
+
+``` r
+pups_data = janitor::clean_names(pups_data)
+names(pups_data)
+```
+
+    ## [1] "litter_number" "sex"           "pd_ears"       "pd_eyes"      
+    ## [5] "pd_pivot"      "pd_walk"
+
+Other Formats
+-------------
+
+``` r
+mlb_data = readxl::read_excel(path = "./data/mlb11.xlsx")
+```

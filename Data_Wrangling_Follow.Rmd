@@ -28,3 +28,9 @@ pups_data = read_csv(file = "./data/FAS_pups.csv")
 pups_data = janitor::clean_names(pups_data)
 names(pups_data)
 ```
+
+## Other Formats
+
+```{r}
+mlb_data = readxl::read_excel(path = "./data/mlb11.xlsx")
+```
