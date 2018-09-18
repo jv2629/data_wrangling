@@ -31,6 +31,28 @@ names(pups_data)
 
 ## Other Formats
 
+Excel.
+
 ```{r}
 mlb_data = readxl::read_excel(path = "./data/mlb11.xlsx")
+mlb_subdata = readxl::read_excel(path = "./data/mlb11.xlsx",
+                              range = "A1:E17")
 ```
+
+SAS data set.
+
+```{r}
+pulse_data = haven::read_sas("./data/public_pulse_data.sas7bdat")
+```
+
+## Compare with base R
+
+```{r}
+pups_readr = read_csv("./data/FAS_pups.csv")
+pups_baser = read.csv("./data/FAS_pups.csv")
+
+pups_readr
+pups_baser
+```
+
+Readr only prints first 10 rows, it wont guess at what you mean. Base R will cause you errors. Small difference that make a big difference in big data workflows. 
