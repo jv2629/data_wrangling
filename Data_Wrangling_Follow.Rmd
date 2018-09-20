@@ -56,3 +56,41 @@ pups_baser
 ```
 
 Readr only prints first 10 rows, it wont guess at what you mean. Base R will cause you errors. Small difference that make a big difference in big data workflows. 
+
+
+
+#Data Manipulation
+
+Using data from last time, no need to laod again.
+
+## Select Variables
+
+Two ways to select, name the variables, or do a from:to selection.
+
+```{r}
+select(litters_data, group, litter_number, gd0_weight)
+
+select(litters_data, gd_of_birth:pups_survive)
+```
+
+or you can do it all and just deselect
+```{r}
+select(litters_data, -litter_number)
+```
+
+You can rename in select as well
+```{r}
+select(litters_data, group, litter_number, gest_day_0_weight = gd0_weight)
+rename(litters_data, cohort = group)
+```
+
+
+You can reorder the data too
+```{r}
+select(litters_data, litter_number, everything())
+```
+
+##Filter Observations
+
+This is how to take out rows. 
+

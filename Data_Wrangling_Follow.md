@@ -434,3 +434,72 @@ pups_baser
     ## 313           #82/4   2       3      13        7       9
 
 Readr only prints first 10 rows, it wont guess at what you mean. Base R will cause you errors. Small difference that make a big difference in big data workflows.
+
+Data Manipulation
+=================
+
+Using data from last time, no need to laod again.
+
+Select Variables
+----------------
+
+Two ways to select, name the variables, or do a from:to selection.
+
+``` r
+select(litters_data, group, litter_number, gd0_weight)
+```
+
+    ## # A tibble: 49 x 3
+    ##    group litter_number   gd0_weight
+    ##    <chr> <chr>                <dbl>
+    ##  1 Con7  #85                   19.7
+    ##  2 Con7  #1/2/95/2             27  
+    ##  3 Con7  #5/5/3/83/3-3         26  
+    ##  4 Con7  #5/4/2/95/2           28.5
+    ##  5 Con7  #4/2/95/3-3           NA  
+    ##  6 Con7  #2/2/95/3-2           NA  
+    ##  7 Con7  #1/5/3/83/3-3/2       NA  
+    ##  8 Con8  #3/83/3-3             NA  
+    ##  9 Con8  #2/95/3               NA  
+    ## 10 Con8  #3/5/2/2/95           28.5
+    ## # ... with 39 more rows
+
+``` r
+select(litters_data, gd_of_birth:pups_survive)
+```
+
+    ## # A tibble: 49 x 4
+    ##    gd_of_birth pups_born_alive pups_dead_birth pups_survive
+    ##          <int>           <int>           <int>        <int>
+    ##  1          20               3               4            3
+    ##  2          19               8               0            7
+    ##  3          19               6               0            5
+    ##  4          19               5               1            4
+    ##  5          20               6               0            6
+    ##  6          20               6               0            4
+    ##  7          20               9               0            9
+    ##  8          20               9               1            8
+    ##  9          20               8               0            8
+    ## 10          20               8               0            8
+    ## # ... with 39 more rows
+
+or you can do it all and just deselect
+
+``` r
+select(litters_data, -litter_number)
+```
+
+    ## # A tibble: 49 x 7
+    ##    group gd0_weight gd18_weight gd_of_birth pups_born_alive pups_dead_birth
+    ##    <chr>      <dbl>       <dbl>       <int>           <int>           <int>
+    ##  1 Con7        19.7        34.7          20               3               4
+    ##  2 Con7        27          42            19               8               0
+    ##  3 Con7        26          41.4          19               6               0
+    ##  4 Con7        28.5        44.1          19               5               1
+    ##  5 Con7        NA          NA            20               6               0
+    ##  6 Con7        NA          NA            20               6               0
+    ##  7 Con7        NA          NA            20               9               0
+    ##  8 Con8        NA          NA            20               9               1
+    ##  9 Con8        NA          NA            20               8               0
+    ## 10 Con8        28.5        NA            20               8               0
+    ## # ... with 39 more rows, and 1 more variable: pups_survive <int>
