@@ -15,7 +15,7 @@ Import my first csv
 
 ```{r}
 litters_data = read_csv(file = "./data/FAS_litters.csv")
-litters_data = janitor::clean_names(litters_data)
+litters_data = janitor::clean_names(litters_data) 
 names(litters_data)
 ```
 
@@ -90,7 +90,20 @@ You can reorder the data too
 select(litters_data, litter_number, everything())
 ```
 
-##Filter Observations
+## Filter Observations
 
-This is how to take out rows. 
+This is how to take out rows. See other examples in his github file. 
+```{r}
+filter(litters_data, pups_born_alive %in% 4:7)
+```
 
+## Mutate
+```{r}
+mutate(litters_data,
+       wt_gain = gd18_weight - gd0_weight,
+       group = tolower(group))
+```
+
+## Piping
+
+Shift + Command + M = %>%

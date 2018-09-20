@@ -503,3 +503,124 @@ select(litters_data, -litter_number)
     ##  9 Con8        NA          NA            20               8               0
     ## 10 Con8        28.5        NA            20               8               0
     ## # ... with 39 more rows, and 1 more variable: pups_survive <int>
+
+You can rename in select as well
+
+``` r
+select(litters_data, group, litter_number, gest_day_0_weight = gd0_weight)
+```
+
+    ## # A tibble: 49 x 3
+    ##    group litter_number   gest_day_0_weight
+    ##    <chr> <chr>                       <dbl>
+    ##  1 Con7  #85                          19.7
+    ##  2 Con7  #1/2/95/2                    27  
+    ##  3 Con7  #5/5/3/83/3-3                26  
+    ##  4 Con7  #5/4/2/95/2                  28.5
+    ##  5 Con7  #4/2/95/3-3                  NA  
+    ##  6 Con7  #2/2/95/3-2                  NA  
+    ##  7 Con7  #1/5/3/83/3-3/2              NA  
+    ##  8 Con8  #3/83/3-3                    NA  
+    ##  9 Con8  #2/95/3                      NA  
+    ## 10 Con8  #3/5/2/2/95                  28.5
+    ## # ... with 39 more rows
+
+``` r
+rename(litters_data, cohort = group)
+```
+
+    ## # A tibble: 49 x 8
+    ##    cohort litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr>  <chr>              <dbl>       <dbl>       <int>           <int>
+    ##  1 Con7   #85                 19.7        34.7          20               3
+    ##  2 Con7   #1/2/95/2           27          42            19               8
+    ##  3 Con7   #5/5/3/83/3-3       26          41.4          19               6
+    ##  4 Con7   #5/4/2/95/2         28.5        44.1          19               5
+    ##  5 Con7   #4/2/95/3-3         NA          NA            20               6
+    ##  6 Con7   #2/2/95/3-2         NA          NA            20               6
+    ##  7 Con7   #1/5/3/83/3-…       NA          NA            20               9
+    ##  8 Con8   #3/83/3-3           NA          NA            20               9
+    ##  9 Con8   #2/95/3             NA          NA            20               8
+    ## 10 Con8   #3/5/2/2/95         28.5        NA            20               8
+    ## # ... with 39 more rows, and 2 more variables: pups_dead_birth <int>,
+    ## #   pups_survive <int>
+
+You can reorder the data too
+
+``` r
+select(litters_data, litter_number, everything())
+```
+
+    ## # A tibble: 49 x 8
+    ##    litter_number group gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr>         <chr>      <dbl>       <dbl>       <int>           <int>
+    ##  1 #85           Con7        19.7        34.7          20               3
+    ##  2 #1/2/95/2     Con7        27          42            19               8
+    ##  3 #5/5/3/83/3-3 Con7        26          41.4          19               6
+    ##  4 #5/4/2/95/2   Con7        28.5        44.1          19               5
+    ##  5 #4/2/95/3-3   Con7        NA          NA            20               6
+    ##  6 #2/2/95/3-2   Con7        NA          NA            20               6
+    ##  7 #1/5/3/83/3-… Con7        NA          NA            20               9
+    ##  8 #3/83/3-3     Con8        NA          NA            20               9
+    ##  9 #2/95/3       Con8        NA          NA            20               8
+    ## 10 #3/5/2/2/95   Con8        28.5        NA            20               8
+    ## # ... with 39 more rows, and 2 more variables: pups_dead_birth <int>,
+    ## #   pups_survive <int>
+
+Filter Observations
+-------------------
+
+This is how to take out rows. See other examples in his github file.
+
+``` r
+filter(litters_data, pups_born_alive %in% 4:7)
+```
+
+    ## # A tibble: 19 x 8
+    ##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>              <dbl>       <dbl>       <int>           <int>
+    ##  1 Con7  #5/5/3/83/3-3       26          41.4          19               6
+    ##  2 Con7  #5/4/2/95/2         28.5        44.1          19               5
+    ##  3 Con7  #4/2/95/3-3         NA          NA            20               6
+    ##  4 Con7  #2/2/95/3-2         NA          NA            20               6
+    ##  5 Con8  #1/6/2/2/95-2       NA          NA            20               7
+    ##  6 Con8  #2/2/95/2           NA          NA            19               5
+    ##  7 Con8  #3/6/2/2/95-3       NA          NA            20               7
+    ##  8 Mod7  #1/82/3-2           NA          NA            19               6
+    ##  9 Mod7  #2/95/2-2           NA          NA            20               7
+    ## 10 Mod7  #3/82/3-2           28          45.9          20               5
+    ## 11 Mod7  #5/3/83/5-2         22.6        37            19               5
+    ## 12 Mod7  #106                21.7        37.8          20               5
+    ## 13 Mod7  #94/2               24.4        42.9          19               7
+    ## 14 Mod7  #62                 19.5        35.9          19               7
+    ## 15 Low7  #112                23.9        40.5          19               6
+    ## 16 Mod8  #7/82-3-2           26.9        43.2          20               7
+    ## 17 Low8  #4/84               21.8        35.2          20               4
+    ## 18 Low8  #99                 23.5        39            20               6
+    ## 19 Low8  #110                25.5        42.7          20               7
+    ## # ... with 2 more variables: pups_dead_birth <int>, pups_survive <int>
+
+Mutate
+------
+
+``` r
+mutate(litters_data,
+       wt_gain = gd18_weight - gd0_weight,
+       group = tolower(group))
+```
+
+    ## # A tibble: 49 x 9
+    ##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>              <dbl>       <dbl>       <int>           <int>
+    ##  1 con7  #85                 19.7        34.7          20               3
+    ##  2 con7  #1/2/95/2           27          42            19               8
+    ##  3 con7  #5/5/3/83/3-3       26          41.4          19               6
+    ##  4 con7  #5/4/2/95/2         28.5        44.1          19               5
+    ##  5 con7  #4/2/95/3-3         NA          NA            20               6
+    ##  6 con7  #2/2/95/3-2         NA          NA            20               6
+    ##  7 con7  #1/5/3/83/3-…       NA          NA            20               9
+    ##  8 con8  #3/83/3-3           NA          NA            20               9
+    ##  9 con8  #2/95/3             NA          NA            20               8
+    ## 10 con8  #3/5/2/2/95         28.5        NA            20               8
+    ## # ... with 39 more rows, and 3 more variables: pups_dead_birth <int>,
+    ## #   pups_survive <int>, wt_gain <dbl>
