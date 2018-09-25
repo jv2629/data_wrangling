@@ -107,3 +107,33 @@ mutate(litters_data,
 ## Piping
 
 Shift + Command + M = %>%
+
+#Tidy Data
+```{r}
+pulse_data = pulse_data %>% 
+  janitor::clean_names()
+```
+
+```{r}
+pulse_tidy_data = pulse_data %>% 
+gather(key = visit, value = bdi, bdi_score_bl:bdi_score_12m)
+```
+
+### Learning Assessment
+Tidying litters data
+
+```{r learning assessment}
+litters_tidy = litters_data %>% 
+  select(litter_number, gd0_weight, gd18_weight) %>% 
+  gather(key = "gest_day", value = "weight", gd0_weight:gd18_weight) %>%
+  mutate(gest_day = recode(gest_day, "gd0_weight" = 0, "gd18_weight" = 18)) %>% 
+  arrange(litter_number)
+```
+
+## Making things more readable for humans
+
+Pivot tables. Use spread. Oy his example is hard to follow in R rn. 
+
+knitr:: kable() = makes a nice formated table
+```{r}
+ananlysis_result

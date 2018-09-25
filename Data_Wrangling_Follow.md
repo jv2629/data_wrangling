@@ -25,7 +25,7 @@ litters_data = read_csv(file = "./data/FAS_litters.csv")
     ## )
 
 ``` r
-litters_data = janitor::clean_names(litters_data)
+litters_data = janitor::clean_names(litters_data) 
 names(litters_data)
 ```
 
@@ -624,3 +624,13 @@ mutate(litters_data,
     ## 10 con8  #3/5/2/2/95         28.5        NA            20               8
     ## # ... with 39 more rows, and 3 more variables: pups_dead_birth <int>,
     ## #   pups_survive <int>, wt_gain <dbl>
+
+Piping
+------
+
+Shift + Command + M = %&gt;%
+
+Tidy Data
+=========
+
+Import
